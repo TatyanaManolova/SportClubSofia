@@ -1,0 +1,31 @@
+{% extends 'base/home-page.html' %}
+
+{% block content %}
+    <!-- Display paragraph: If there are no skaters yet-->
+    {% if skaters_len == 0 %}
+        <p class="no-skaters">No skaters yet</p>
+    {% else %}
+        <!-- Display div "skater" with information about every skater (if any)-->
+        {% for skater in skaters %}
+        <section id="skater">
+            <!--skater-->
+            <div class="skater-card">
+                <div class="image-wrap">
+                    <!-- skater image -->
+                    <img src="{{ skater.image_url }}"
+                         alt="{{ skater.category}}">
+                </div>
+                <!-- skater name -->
+                <h1>{{ skater.name }}</h1>
+                <!-- skater description -->
+                <h3>{{ skater.category}}</h3>
+                <div class="details-buttons">
+                    <!-- skater details button -->
+                    <a href="{% url 'skater_details' pk=skater.pk %}" class="details-btn">Details</a>
+                </div>
+                </div>
+
+        </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

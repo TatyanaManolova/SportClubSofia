@@ -1,0 +1,20 @@
+{% extends 'base/home-page.html' %}
+{#{% load custom_filter %}#}
+{% block content %}
+    <!-- create profile form -->
+    <section id="register-page" class="content auth">
+        <form id="register" method="post" action="{% url 'login' %}">
+            <div class="container">
+                <h1>Login</h1>
+                {{ form.username }}
+                {{ form.password }}
+
+                <input type="hidden" value="{{ next }}" name="next"/>
+
+                <input class="btn submit" type="submit" value="Login">
+                {% csrf_token %}
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

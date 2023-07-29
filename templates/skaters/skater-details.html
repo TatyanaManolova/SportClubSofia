@@ -1,0 +1,28 @@
+{% extends 'base/home-page.html' %}
+{% block content %}
+
+    <!-- details section -->
+    <section id="skater-details">
+        <h1>Skater Details</h1>
+        <div class="info-section">
+            <div class="skater-header">
+                <!-- skater image -->
+                <img class="skater-img"
+                     src="{{ skater.image_url }}"
+                     alt='skater image'/>
+                <!-- skater category -->
+                <h1>{{ skater.category}}</h1>
+                <!-- skater name -->
+                <p><span class="description-skater">Name: {{ skater.name }}</span></p>
+                <!-- skater age -->
+                <p><span class="description-skater">Age: {{ skater.age }}</span></p>
+            </div>
+
+            <!-- Edit/Delete buttons -->
+            <div class="buttons">
+                <a href="{% url 'skater_edit' pk=skater.pk %}" class="edit-button">Edit</a>
+                <a href="{% url 'skater_delete' pk=skater.pk %}" class="delete-button">Delete</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
