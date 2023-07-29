@@ -11,11 +11,11 @@
                      src="{{ skater.image_url }}"
                      alt='skater image'/>
                 <!-- skater category -->
-                <h1>{{ skater.category}}</h1>
+                <h1>Name: {{ skater.name }}</h1>
                 <!-- skater name -->
-                <p><span class="description-skater">Name: {{ skater.name }}</span></p>
-                <!-- skater age -->
                 <p><span class="description-skater">Age: {{ skater.age }}</span></p>
+                <!-- skater age -->
+                <p><span class="description-skater">Category: {{ skater.category }}</span></p>
             </div>
 
             <!-- Edit/Delete buttons -->

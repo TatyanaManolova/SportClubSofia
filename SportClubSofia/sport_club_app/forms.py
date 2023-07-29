@@ -48,8 +48,8 @@ class EditUserForm(forms.ModelForm):
 class SkaterBaseForm(forms.ModelForm):
     class Meta:
         model = Skater
-        fields = '__all__'
-        # exclude = ('user',)
+        # fields = '__all__'
+        exclude = ('coach',)
 
 
 class SkaterCreateForm(SkaterBaseForm):

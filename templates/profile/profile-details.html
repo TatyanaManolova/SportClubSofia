@@ -6,6 +6,8 @@
         <h1>Profile Details</h1>
         <div class="info-section">
             <div class="skater-header">
+                <h1>Names: {{ user.first_name }} {{ user.last_name }}</h1>
+
 {#                {% if not profile.profile_picture %}#}
 {#                <!-- default profile image (if the user does NOT have any)-->#}
 {#                    <img class="skater-img" src="{% static '/images/default.jpg' %}" alt='profile-image'/>#}
@@ -14,11 +16,11 @@
 {#                    <img class="skater-img" src="{{ profile.profile_picture }}" alt='profile-image'/>#}
 {#                {% endif %}#}
                 <!-- user full name -->
-                <h1>{{ profile.first_name }} {{ profile.last_name }} </h1>
+
 
                 <!-- user username -->
-                <p class="description">Username: {{ profile.username }}</p>
-
+                <p class="description">Username: {{ user.username }}</p>
+{##}
 {#                <p class="description">Total skaters:</p>#}
 {#                {% if skaters %}#}
 {#                    {% for skater in skaters %}#}

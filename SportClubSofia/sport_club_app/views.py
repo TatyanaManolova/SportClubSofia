@@ -131,13 +131,13 @@ def get_skater(pk):
 
 
 def skaters_list(request):
-    profile = UserModel
-    skaters = sorted(Skater.objects.all(), key=lambda x: x.pk)
+    # profile = UserModel
+    skaters = Skater.objects.filter(coach=request.user)
 
     context = {
         'skaters': skaters,
         'skaters_len': len(skaters),
-        'profile': profile
+        # 'profile': profile
     }
     return render(request, 'base/skaters.html', context)
 
@@ -158,9 +158,9 @@ def skater_create(request):
     form = SkaterCreateForm(request.POST or None)
     if form.is_valid():
         skater = form.save(commit=False)
-        skater.user = request.user
+        skater.coach = request.user
         skater.save()
-        return redirect('skaters', pk=skater.pk)
+        return redirect('skaters')
 
     context = {
         # 'profile': profile,

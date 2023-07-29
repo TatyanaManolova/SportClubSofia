@@ -65,12 +65,6 @@ class Skater(models.Model):
         ('SENIOR', 'Senior'),
     )
 
-    category = models.CharField(
-        null=False,
-        blank=False,
-        max_length=TYPE_MAX_LENGTH,
-        choices=CHOICES
-    )
     name = models.CharField(
         null=False,
         blank=False,
@@ -80,6 +74,14 @@ class Skater(models.Model):
             check_string_only_letters
         )
     )
+
+    category = models.CharField(
+        null=False,
+        blank=False,
+        max_length=TYPE_MAX_LENGTH,
+        choices=CHOICES
+    )
+
     image_url = models.URLField(
         null=False,
         blank=False,
@@ -91,5 +93,5 @@ class Skater(models.Model):
         blank=False
     )
 
-    user = models.ForeignKey(to=ClubUser, on_delete=models.DO_NOTHING)
+    coach = models.ForeignKey(to=ClubUser, auto_created=True, on_delete=models.DO_NOTHING)
 
