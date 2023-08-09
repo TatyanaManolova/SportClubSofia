@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model
 
-from SportClubSofia.sport_club_app.models import Skater
+from SportClubSofia.sport_club_app.models import Skater, Competition
 
 UserModel = get_user_model()
 
@@ -10,20 +10,18 @@ class LoginUserForm(auth_forms.AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'class': 'ala-bala'
+                'class': 'class'
             })
     )
-
-    # class Meta(auth_forms.AuthenticationForm.Meta):
 
 
 class RegisterUserForm(auth_forms.UserCreationForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'profile_picture', 'password1', 'password2')
         widgets = {
             'username': forms.TextInput(attrs={
-                'class': 'ala-bala'
+                'class': 'class'
             })
         }
 
@@ -35,13 +33,14 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'email')
+        fields = ('username', 'first_name', 'last_name',  'email')
         exclude = ('password',)
         labels = {
             'username': 'Username',
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'Email',
+            'profile_picture': 'Profile Picture',
         }
 
 
@@ -74,3 +73,19 @@ class SkaterDeleteForm(SkaterBaseForm):
     def __set_readonly_fields(self):
         for field in self.fields.values():
             field.widget.attrs['readonly'] = 'readonly'
+
+
+# class TrainingSessionForm(forms.ModelForm):
+#     class Meta:
+#         model = TrainingSession
+#         fields = ['skater', 'coach', 'date', 'duration']
+#
+class CompetitionForm(forms.ModelForm):
+    class Meta:
+        model = Competition
+        fields = ['name', 'location', 'start_date', 'end_date']
+#
+# class AchievementForm(forms.ModelForm):
+#     class Meta:
+#         model = Achievement
+#         fields = ['skater', 'competition', 'rank']

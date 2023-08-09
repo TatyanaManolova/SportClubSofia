@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'SportClubSofia.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "sportclubsofia_db",
+        "NAME": "sportclub_project_db",
         "USER": "postgres-user",
         "PASSWORD": "password-1",
         "HOST": "127.0.0.1",
@@ -126,6 +126,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

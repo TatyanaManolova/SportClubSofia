@@ -12,13 +12,13 @@
             <div class="skater-card">
                 <div class="image-wrap">
                     <!-- skater image -->
-                    <img src="{{ skater.image_url }}"
-                         alt="{{ skater.category}}">
+                    <img src="{{ skater.photo }}">
+{#                         alt="{{ skater.category }}">#}
                 </div>
                 <!-- skater name -->
                 <h1>{{ skater.name }}</h1>
                 <!-- skater description -->
-                <h3>{{ skater.category}}</h3>
+                <h3>{{ skater.category }}</h3>
                 <div class="details-buttons">
                     <!-- skater details button -->
                     <a href="{% url 'skater_details' pk=skater.pk %}" class="details-btn">Details</a>

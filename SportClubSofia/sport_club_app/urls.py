@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from SportClubSofia.sport_club_app.views import home_page, RegisterUserView, LoginUserView, \
     ProfileDetailsView, ProfileEditView, ProfileDeleteView, LogoutUserView, skaters_list, skater_create, skater_details, \
-    skater_edit, skater_delete
+    skater_edit, skater_delete, show_skaters_list, show_coaches_list, show_competitions_list
 
 urlpatterns = [
     path('', home_page, name='home_page'),
@@ -15,6 +15,9 @@ urlpatterns = [
         path('delete/', ProfileDeleteView.as_view(), name='profile_delete')
     ])),
     path('skaters/', skaters_list, name='skaters'),
+    path('skaterslist/', show_skaters_list, name='skaters_list'),
+    path('competitionslist/', show_competitions_list, name='competitions_list'),
+    path('coacheslist/', show_coaches_list, name='coaches_list'),
     path('create/', skater_create, name='skater_create'),
     path('details/<int:pk>/', skater_details, name='skater_details'),
     path('edit/<int:pk>/', skater_edit, name='skater_edit'),

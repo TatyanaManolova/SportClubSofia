@@ -9,3 +9,10 @@ def check_for_capital_first_letter(value):
 def check_string_only_letters(value):
     if not value.isalpha():
         raise ValidationError('Plant name should contain only letters!')
+
+
+def validate_file_size(image_object):
+    if image_object.size > 5242880:
+        raise ValidationError('The maximum file size that can be uploaded is 5MB.')
+
+

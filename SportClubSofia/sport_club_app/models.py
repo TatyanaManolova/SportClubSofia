@@ -2,7 +2,8 @@ from django.core import validators
 from django.db import models
 from django.contrib.auth import models as auth_models
 
-from SportClubSofia.sport_club_app.validators import check_for_capital_first_letter, check_string_only_letters
+from SportClubSofia.sport_club_app.validators import check_for_capital_first_letter, check_string_only_letters, \
+    validate_file_size
 
 
 class ClubUser(auth_models.AbstractUser):
@@ -33,10 +34,7 @@ class ClubUser(auth_models.AbstractUser):
         unique=True,
     )
 
-    # profile_picture = models.URLField(
-    #     null=True,
-    #     blank=True,
-    # )
+    profile_picture = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="media/photos")
 
     @property
     def full_name(self):
@@ -75,6 +73,8 @@ class Skater(models.Model):
         )
     )
 
+    photo = models.ImageField(validators=(validate_file_size,), upload_to="media/photos")
+
     category = models.CharField(
         null=False,
         blank=False,
@@ -82,16 +82,30 @@ class Skater(models.Model):
         choices=CHOICES
     )
 
-    image_url = models.URLField(
-        null=False,
-        blank=False,
-        verbose_name='Image URL',
-    )
-
     age = models.IntegerField(
         null=False,
         blank=False
     )
 
-    coach = models.ForeignKey(to=ClubUser, auto_created=True, on_delete=models.DO_NOTHING)
+    coach = models.ForeignKey(to=ClubUser, auto_created=True, on_delete=models.SET_NULL, null=True)
+
+
+class Competition(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=200)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+
+# class TrainingSession(models.Model):
+#     skater = models.ForeignKey(Skater, on_delete=models.CASCADE)
+#     coach = models.ForeignKey(ClubUser, on_delete=models.CASCADE)
+#     date = models.DateField()
+#     duration = models.IntegerField()
+#
+#
+# class Achievement(models.Model):
+#     skater = models.ForeignKey(Skater, on_delete=models.CASCADE)
+#     competition = models.ForeignKey(Competition, on_delete=models.CASCADE)
+#     rank = models.IntegerField()
 

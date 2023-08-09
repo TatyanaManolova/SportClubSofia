@@ -7,20 +7,12 @@ from django.contrib.auth import views as auth_views, login, get_user_model
 
 from SportClubSofia.sport_club_app.forms import LoginUserForm, RegisterUserForm, EditUserForm, SkaterCreateForm, \
     SkaterEditForm, SkaterDeleteForm
-from SportClubSofia.sport_club_app.models import Skater
+from SportClubSofia.sport_club_app.models import Skater, Competition
 
 UserModel = get_user_model()
 
 
-class OnlyAnonymousMixin:
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponse(self.get_success_url())
-
-        return super().dispatch(request, *args, **kwargs)
-
-
-class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
+class RegisterUserView(views.CreateView):
     template_name = 'profile/create-profile.html'
     form_class = RegisterUserForm
     success_url = reverse_lazy('home_page')
@@ -29,11 +21,6 @@ class RegisterUserView(OnlyAnonymousMixin, views.CreateView):
         result = super().form_valid(form)
 
         login(self.request, self.object)
-
-        # Send email on successful register: Variant 1
-        # Not good one, only sends email when user is registered from the site,
-        # but not from the `admin`
-        # send_mail....
 
         return result
 
@@ -61,12 +48,8 @@ class LoginUserView(auth_views.LoginView):
     success_url = reverse_lazy('skaters')
 
 
-# def user_logout(request):
-#     return redirect('home_page')
-
 class LogoutUserView(auth_views.LogoutView):
     pass
-    # success_url = reverse_lazy('home_page')
 
 
 def home_page(request):
@@ -140,6 +123,28 @@ def skaters_list(request):
         # 'profile': profile
     }
     return render(request, 'base/skaters.html', context)
+
+
+def show_skaters_list(request):
+    # profile = UserModel
+    skaters = Skater.objects.filter()
+
+    context = {
+        'skaters': skaters,
+        'skaters_len': len(skaters),
+        # 'profile': profile
+    }
+    return render(request, 'base/skaters_list.html', context)
+
+
+def show_coaches_list(request):
+    coaches = UserModel.objects.filter()
+
+    context = {
+        'coaches': coaches,
+        'coaches_len': len(coaches),
+    }
+    return render(request, 'base/coaches_list.html', context)
 
 
 def skater_create(request):
@@ -222,4 +227,15 @@ def skater_delete(request, pk):
     return render(request, 'skaters/delete-skater.html', context)
 
 
+# def show_competitions_list(request):
+#     competitions = Competition.objects.all()
+#     return render(request, 'base/competitions_list.html', {'competitions': competitions})
+def show_competitions_list(request):
+    competitions = Competition.objects.all()
+
+    context = {
+        'competitions': competitions,
+        'competitions_len': len(competitions),
+    }
+    return render(request, 'base/competitions_list.html', context)
 
