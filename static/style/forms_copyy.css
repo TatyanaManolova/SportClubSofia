@@ -74,7 +74,7 @@ input[type="url"]{
 
 
 select {
-    background: #6d8d46b5;
+    background: rgba(70, 101, 141, 0.71);
     padding: 10px 20px 10px 20px;
     height: 50px;
     margin-top: 10px;

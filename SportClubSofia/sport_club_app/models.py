@@ -63,17 +63,29 @@ class Skater(models.Model):
         ('SENIOR', 'Senior'),
     )
 
-    name = models.CharField(
+    first_name = models.CharField(
         null=False,
         blank=False,
         max_length=SKATER_NAME_MAX_LENGTH,
         validators=(
             validators.MinLengthValidator(SKATER_NAME_MIN_LENGTH),
-            check_string_only_letters
+            check_string_only_letters,
+            check_for_capital_first_letter
         )
     )
 
-    photo = models.ImageField(validators=(validate_file_size,), upload_to="media/photos")
+    last_name = models.CharField(
+        null=False,
+        blank=False,
+        max_length=SKATER_NAME_MAX_LENGTH,
+        validators=(
+            validators.MinLengthValidator(SKATER_NAME_MIN_LENGTH),
+            check_string_only_letters,
+            check_for_capital_first_letter
+        )
+    )
+
+    photo = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="media/photos")
 
     category = models.CharField(
         null=False,
@@ -92,7 +104,8 @@ class Skater(models.Model):
 
 class Competition(models.Model):
     name = models.CharField(max_length=100)
-    location = models.CharField(max_length=200)
+    location_city = models.CharField(max_length=200)
+    location_country = models.CharField(max_length=200)
     start_date = models.DateField()
     end_date = models.DateField()
 

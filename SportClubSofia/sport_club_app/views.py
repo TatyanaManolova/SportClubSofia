@@ -6,7 +6,7 @@ from django.views import generic as views
 from django.contrib.auth import views as auth_views, login, get_user_model
 
 from SportClubSofia.sport_club_app.forms import LoginUserForm, RegisterUserForm, EditUserForm, SkaterCreateForm, \
-    SkaterEditForm, SkaterDeleteForm
+    SkaterEditForm, SkaterDeleteForm, CompetitionCreateForm, CompetitionEditForm, CompetitionDeleteForm
 from SportClubSofia.sport_club_app.models import Skater, Competition
 
 UserModel = get_user_model()
@@ -113,6 +113,11 @@ def get_skater(pk):
     return skater
 
 
+def get_competition(pk):
+    competition = Competition.objects.filter(pk=pk).get()
+    return competition
+
+
 def skaters_list(request):
     # profile = UserModel
     skaters = Skater.objects.filter(coach=request.user)
@@ -148,17 +153,6 @@ def show_coaches_list(request):
 
 
 def skater_create(request):
-    # profile = UserModel
-    #
-    # if request.method == 'GET':
-    #     form = SkaterCreateForm()
-    # else:
-    #     form = SkaterCreateForm(request.POST)
-    #     if form.is_valid():
-    #
-    #         form.save()
-    #
-    #         return redirect('skaters')
 
     form = SkaterCreateForm(request.POST or None)
     if form.is_valid():
@@ -176,6 +170,7 @@ def skater_create(request):
 
 
 def skater_details(request, pk):
+
     skater = get_skater(pk)
     profile = UserModel
 
@@ -227,9 +222,6 @@ def skater_delete(request, pk):
     return render(request, 'skaters/delete-skater.html', context)
 
 
-# def show_competitions_list(request):
-#     competitions = Competition.objects.all()
-#     return render(request, 'base/competitions_list.html', {'competitions': competitions})
 def show_competitions_list(request):
     competitions = Competition.objects.all()
 
@@ -238,4 +230,72 @@ def show_competitions_list(request):
         'competitions_len': len(competitions),
     }
     return render(request, 'base/competitions_list.html', context)
+
+
+def competition_create(request):
+
+    form = CompetitionCreateForm(request.POST or None)
+    if form.is_valid():
+        competition = form.save()
+        competition.save()
+        return redirect('competitions')
+
+    context = {
+
+        'form': form
+    }
+
+    return render(request, 'competitions/create-competition.html', context)
+
+
+def competition_details(request, pk):
+    competition = get_competition(pk)
+    # profile = UserModel
+
+    context = {
+        'competition': competition,
+        # 'profile': profile
+    }
+
+    return render(request, 'competitions/competition-details.html', context)
+
+
+def competition_edit(request, pk):
+    # profile = UserModel
+    competition = get_competition(pk)
+
+    if request.method == 'GET':
+        form = CompetitionEditForm(instance=competition)
+    else:
+        form = SkaterEditForm(request.POST, instance=competition)
+        if form.is_valid():
+            form.save()
+            return redirect('competitions_list')
+
+    context = {
+        # 'profile': profile,
+        'competition': competition,
+        'form': form
+    }
+    return render(request, 'competitions/edit-competition.html', context)
+
+
+def competition_delete(request, pk):
+    # profile = UserModel
+    competition = get_competition(pk)
+
+    if request.method == 'GET':
+        form = CompetitionDeleteForm(instance=competition)
+    else:
+        form = CompetitionDeleteForm(request.POST, instance=competition)
+        if form.is_valid():
+            form.save()
+            return redirect('competitions_list')
+
+    context = {
+        # 'profile': profile,
+        'competition': competition,
+        'form': form
+    }
+    return render(request, 'competitions/delete-competition.html', context)
 

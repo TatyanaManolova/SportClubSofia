@@ -8,7 +8,7 @@ def check_for_capital_first_letter(value):
 
 def check_string_only_letters(value):
     if not value.isalpha():
-        raise ValidationError('Plant name should contain only letters!')
+        raise ValidationError('Your name should contain only letters!')
 
 
 def validate_file_size(image_object):

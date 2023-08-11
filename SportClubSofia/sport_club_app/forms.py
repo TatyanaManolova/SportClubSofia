@@ -33,7 +33,7 @@ class RegisterUserForm(auth_forms.UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'first_name', 'last_name',  'email')
+        fields = ('username', 'first_name', 'last_name',  'email', 'profile_picture')
         exclude = ('password',)
         labels = {
             'username': 'Username',
@@ -80,10 +80,36 @@ class SkaterDeleteForm(SkaterBaseForm):
 #         model = TrainingSession
 #         fields = ['skater', 'coach', 'date', 'duration']
 #
-class CompetitionForm(forms.ModelForm):
+
+class CompetitionBaseForm(forms.ModelForm):
     class Meta:
         model = Competition
-        fields = ['name', 'location', 'start_date', 'end_date']
+        fields = '__all__'
+        # exclude = ('coach',)
+
+
+class CompetitionCreateForm(CompetitionBaseForm):
+    pass
+
+
+class CompetitionEditForm(CompetitionBaseForm):
+    pass
+
+
+class CompetitionDeleteForm(CompetitionBaseForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__set_readonly_fields()
+
+    def save(self, commit=True):
+        if self.instance:
+            self.instance.delete()
+
+        return self.instance
+
+    def __set_readonly_fields(self):
+        for field in self.fields.values():
+            field.widget.attrs['readonly'] = 'readonly'
 #
 # class AchievementForm(forms.ModelForm):
 #     class Meta:

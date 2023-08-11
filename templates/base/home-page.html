@@ -20,6 +20,7 @@
         <nav>
         {% if request.user.is_authenticated %}
         <!-- if the user has created a profile -->
+            <a href="{% url 'competition_create' %}">Add Competition</a>
             <a href="{% url 'skaters' %}">Show Skaters</a>
             <a href="{% url 'skater_create' %}">Add Skater</a>
             <a href="{% url 'profile_details' request.user.pk %}">Profile</a>
