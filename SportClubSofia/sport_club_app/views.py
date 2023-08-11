@@ -1,4 +1,3 @@
-# from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.templatetags.static import static
 from django.urls import reverse_lazy
@@ -35,9 +34,6 @@ class RegisterUserView(views.CreateView):
         return context
 
     def get_success_url(self):
-        # if 'next' in self.request.POST:
-        #     return self.request.POST['next']
-        # return self.success_url
 
         return self.request.POST.get('next', self.success_url)
 
@@ -79,9 +75,6 @@ class ProfileDetailsView(views.DetailView):
         # context['pets'] = self.request.user.pet_set.all()
 
         return context
-
-    # `UserModel.objects.all()` returns `queryset`
-    # To work provide either `model`, `queryset` or `get_queryset`
 
 
 class ProfileEditView(views.UpdateView):
@@ -225,56 +218,4 @@ def competition_create(request):
     }
 
     return render(request, 'competitions/create-competition.html', context)
-
-
-# def competition_details(request, pk):
-#     competition = get_competition(pk)
-#     # profile = UserModel
-#
-#     context = {
-#         'competition': competition,
-#         # 'profile': profile
-#     }
-#
-#     return render(request, 'competitions/competition-details.html', context)
-
-
-# def competition_edit(request, pk):
-#     # profile = UserModel
-#     competition = get_competition(pk)
-#
-#     if request.method == 'GET':
-#         form = CompetitionEditForm(instance=competition)
-#     else:
-#         form = CompetitionEditForm(request.POST, instance=competition)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('competitions_list')
-#
-#     context = {
-#         # 'profile': profile,
-#         'competition': competition,
-#         'form': form
-#     }
-#     return render(request, 'competitions/edit-competition.html', context)
-
-
-# def competition_delete(request, pk):
-#     # profile = UserModel
-#     competition = get_competition(pk)
-#
-#     if request.method == 'GET':
-#         form = CompetitionDeleteForm(instance=competition)
-#     else:
-#         form = CompetitionDeleteForm(request.POST, instance=competition)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('competitions_list')
-
-    # context = {
-    #     # 'profile': profile,
-    #     'competition': competition,
-    #     'form': form
-    # }
-    # return render(request, 'competitions/delete-competition.html', context)
 

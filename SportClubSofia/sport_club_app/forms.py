@@ -22,6 +22,7 @@ class LoginUserForm(auth_forms.AuthenticationForm):
             })
     )
 
+
 class RegisterUserForm(auth_forms.UserCreationForm):
     class Meta:
         model = UserModel
@@ -99,24 +100,6 @@ class CompetitionCreateForm(CompetitionBaseForm):
     pass
 
 
-# class CompetitionEditForm(CompetitionBaseForm):
-#     pass
-
-
-# class CompetitionDeleteForm(CompetitionBaseForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.__set_readonly_fields()
-#
-#     def save(self, commit=True):
-#         if self.instance:
-#             self.instance.delete()
-#
-#         return self.instance
-#
-#     def __set_readonly_fields(self):
-#         for field in self.fields.values():
-#             field.widget.attrs['readonly'] = 'readonly'
 #
 # class AchievementForm(forms.ModelForm):
 #     class Meta:
