@@ -1,0 +1,29 @@
+{% extends 'base/home-page.html' %}
+
+{% block content %}
+    <!-- Display paragraph: If there are no skaters yet-->
+    {% if competitions_len == 0 %}
+        <p class="no-skaters">No competitions yet</p>
+    {% else %}
+        <!-- Display div "competition" with information about every competition (if any)-->
+        {% for competition in competitions %}
+        <section id="skater">
+            <!--skater-->
+            <div class="skater-card">
+
+                <!-- skater name -->
+                <h3>{{ competition.name }}</h3>
+                <!-- skater description -->
+                <h3>{{ competition.location_city}}</h3>
+                <h3>{{ competition.location_country}}</h3>
+
+                <h3>{{ competition.start_date}}</h3>
+                <h3>{{ competition.end_date}}</h3>
+
+
+            </div>
+
+        </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

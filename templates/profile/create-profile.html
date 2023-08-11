@@ -1,14 +1,27 @@
 {% extends 'base/home-page.html' %}
-{#{% load custom_filter %}#}
+{% load custom_filters %}
 {% block content %}
     <!-- create profile form -->
     <section id="register-page" class="content auth">
         <form id="register" method="post" action="{% url 'register' %}">
             <div class="container">
-                <h1>Create Profile</h1>
-                {{ form.as_p }}
+                <h1>Register Form</h1>
+                {{ form.username.errors }}
+                {{ form.username|placeholder:'username' }}
+                {{ form.first_name.errors }}
+                {{ form.first_name|placeholder:'First Name' }}
+                {{ form.last_name.errors }}
+                {{ form.last_name|placeholder:'Last Name' }}
+                {{ form.email.errors }}
+                {{ form.email|placeholder:'email' }}
+                {{ form.profile_picture.errors }}
+                {{ form.profile_picture }}
+                {{ form.password1.errors }}
+                {{ form.password2.errors }}
+                {{ form.password1|placeholder:'password' }}
+                {{ form.password2|placeholder:'Repeat password' }}
 
-                <input class="btn submit" type="submit" value="Create Profile">
+                <input class="btn submit" type="submit" value="Register">
                 {% csrf_token %}
             </div>
         </form>

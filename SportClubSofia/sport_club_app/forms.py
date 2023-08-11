@@ -10,10 +10,17 @@ class LoginUserForm(auth_forms.AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'class': 'class'
+                'placeholder': 'username'
             })
     )
 
+    password = forms.CharField(
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'password'
+            })
+    )
 
 class RegisterUserForm(auth_forms.UserCreationForm):
     class Meta:

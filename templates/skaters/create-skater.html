@@ -1,5 +1,5 @@
 {% extends 'base/home-page.html' %}
-
+{% load custom_filters %}
 {% block content %}
     <!-- create skater form -->
     <section id="create-page" class="auth">
@@ -7,7 +7,16 @@
             <div class="container">
                 <h1 class="form-create-headline">Create Skater</h1>
 
-                {{ form }}
+                {{ form.first_name.errors }}
+                {{ form.first_name|placeholder:'First Name' }}
+                {{ form.last_name.errors }}
+                {{ form.last_name|placeholder:'Last Name' }}
+{#                {{ form.profile_picture.errors }}#}
+                {{ form.photo }}
+                {{ form.category.errors }}
+                {{ form.category|placeholder:'category' }}
+                {{ form.age.errors }}
+                {{ form.age|placeholder:'age' }}
 
                 <input class="btn" type="submit" value="Create Skater">
                 {% csrf_token %}

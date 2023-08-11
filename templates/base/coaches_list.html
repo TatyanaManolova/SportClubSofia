@@ -1,0 +1,33 @@
+{% extends 'base/home-page.html' %}
+{% load static %}
+{% block content %}
+    <!-- Display paragraph: If there are no coaches yet-->
+    {% if coach_len == 0 %}
+        <p class="no-skaters">No coaches yet</p>
+    {% else %}
+        <!-- Display div "coach" with information about every coach (if any)-->
+        {% for coach in coaches %}
+        <section id="skater">
+            <!--coach-->
+            <div class="skater-card">
+
+                 {% if not coach.profile_picture %}
+                <!-- default profile image (if the user does NOT have any)-->
+                    <img class="skater-img" src="{% static '/images/default.jpg' %}" alt=''/>
+                {% else %}
+                <!-- if the user has a profile image -->
+                    <img class="skater-img" src="{{ coach.profile_picture }}" alt=''/>
+                {% endif %}
+
+
+                <!-- coach name -->
+                <h3>{{ coach.first_name }} {{ coach.last_name }}</h3>
+
+
+
+            </div>
+
+        </section>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

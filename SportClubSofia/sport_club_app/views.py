@@ -110,7 +110,7 @@ def get_competition(pk):
 
 
 def skaters_list(request):
-    # profile = UserModel
+
     skaters = Skater.objects.filter(coach=request.user)
 
     context = {
@@ -119,18 +119,6 @@ def skaters_list(request):
         # 'profile': profile
     }
     return render(request, 'base/skaters.html', context)
-
-
-# def show_skaters_list(request):
-#     # profile = UserModel
-#     skaters = Skater.objects.filter()
-#
-#     context = {
-#         'skaters': skaters,
-#         'skaters_len': len(skaters),
-#         # 'profile': profile
-#     }
-#     return render(request, 'base/skaters_list.html', context)
 
 
 def show_coaches_list(request):
