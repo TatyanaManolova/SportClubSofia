@@ -145,7 +145,7 @@ def show_coaches_list(request):
 
 def skater_create(request):
 
-    form = SkaterCreateForm(request.POST or None, request.FILES or None)
+    form = SkaterCreateForm(request.POST or None)  # , request.FILES or None)
     if form.is_valid():
         skater = form.save(commit=False)
         skater.coach = request.user
