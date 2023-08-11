@@ -3,11 +3,11 @@
 {% block content %}
     <!-- create skater form -->
     <section id="create-page" class="auth">
-        <form id="create" method="post" action="{% url 'skater_create' %}">
+        <form id="create" method="post" enctype="multipart/form-data" action="{% url 'skater_create' %}">
             <div class="container">
                 <h1 class="form-create-headline">Create Skater</h1>
 
-                {{ form.as_p }}
+                {{ form }}
 
                 <input class="btn" type="submit" value="Create Skater">
                 {% csrf_token %}

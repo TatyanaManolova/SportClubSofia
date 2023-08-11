@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.templatetags.static import static
 from django.urls import reverse_lazy
@@ -6,7 +6,7 @@ from django.views import generic as views
 from django.contrib.auth import views as auth_views, login, get_user_model
 
 from SportClubSofia.sport_club_app.forms import LoginUserForm, RegisterUserForm, EditUserForm, SkaterCreateForm, \
-    SkaterEditForm, SkaterDeleteForm, CompetitionCreateForm, CompetitionEditForm, CompetitionDeleteForm
+    SkaterEditForm, SkaterDeleteForm, CompetitionCreateForm   # CompetitionEditForm, CompetitionDeleteForm
 from SportClubSofia.sport_club_app.models import Skater, Competition
 
 UserModel = get_user_model()
@@ -53,29 +53,29 @@ class LogoutUserView(auth_views.LogoutView):
 
 
 def home_page(request):
-    # profile = get_profile()
-    #
-    # context = {
-    #     'profile': profile
-    # }
-    return render(request, 'base/home-page.html')
+    profile = UserModel
+
+    context = {
+        'profile': profile
+    }
+    return render(request, 'base/home-page.html', context)
 
 
 class ProfileDetailsView(views.DetailView):
     template_name = 'profile/profile-details.html'
     model = UserModel
 
-    # profile_image = static('images/person.png')
+    profile_image = static('images/default.jpg')
 
-    # def get_profile_image(self):
-    #     if self.object.profile_picture is not None:
-    #         return self.object.profile_picture
-    #     return self.profile_image
+    def get_profile_image(self):
+        if self.object.profile_picture is not None:
+            return self.object.profile_picture
+        return self.profile_image
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # context['profile_image'] = self.get_profile_image()
+        context['profile_image'] = self.get_profile_image()
         # context['pets'] = self.request.user.pet_set.all()
 
         return context
@@ -83,15 +83,6 @@ class ProfileDetailsView(views.DetailView):
     # `UserModel.objects.all()` returns `queryset`
     # To work provide either `model`, `queryset` or `get_queryset`
 
-
-# def profile_details(request, pk):
-#     pets = Pet.objects.all()
-#
-#     context = {
-#         "pets": pets,
-#     }
-#
-#     return render(request, 'accounts/profile-details-page.html', context=context)
 
 class ProfileEditView(views.UpdateView):
     template_name = 'profile/edit-profile.html'
@@ -130,16 +121,16 @@ def skaters_list(request):
     return render(request, 'base/skaters.html', context)
 
 
-def show_skaters_list(request):
-    # profile = UserModel
-    skaters = Skater.objects.filter()
-
-    context = {
-        'skaters': skaters,
-        'skaters_len': len(skaters),
-        # 'profile': profile
-    }
-    return render(request, 'base/skaters_list.html', context)
+# def show_skaters_list(request):
+#     # profile = UserModel
+#     skaters = Skater.objects.filter()
+#
+#     context = {
+#         'skaters': skaters,
+#         'skaters_len': len(skaters),
+#         # 'profile': profile
+#     }
+#     return render(request, 'base/skaters_list.html', context)
 
 
 def show_coaches_list(request):
@@ -154,7 +145,7 @@ def show_coaches_list(request):
 
 def skater_create(request):
 
-    form = SkaterCreateForm(request.POST or None)
+    form = SkaterCreateForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         skater = form.save(commit=False)
         skater.coach = request.user
@@ -238,7 +229,7 @@ def competition_create(request):
     if form.is_valid():
         competition = form.save()
         competition.save()
-        return redirect('competitions')
+        return redirect('competitions_list')
 
     context = {
 
@@ -248,54 +239,54 @@ def competition_create(request):
     return render(request, 'competitions/create-competition.html', context)
 
 
-def competition_details(request, pk):
-    competition = get_competition(pk)
-    # profile = UserModel
-
-    context = {
-        'competition': competition,
-        # 'profile': profile
-    }
-
-    return render(request, 'competitions/competition-details.html', context)
-
-
-def competition_edit(request, pk):
-    # profile = UserModel
-    competition = get_competition(pk)
-
-    if request.method == 'GET':
-        form = CompetitionEditForm(instance=competition)
-    else:
-        form = SkaterEditForm(request.POST, instance=competition)
-        if form.is_valid():
-            form.save()
-            return redirect('competitions_list')
-
-    context = {
-        # 'profile': profile,
-        'competition': competition,
-        'form': form
-    }
-    return render(request, 'competitions/edit-competition.html', context)
+# def competition_details(request, pk):
+#     competition = get_competition(pk)
+#     # profile = UserModel
+#
+#     context = {
+#         'competition': competition,
+#         # 'profile': profile
+#     }
+#
+#     return render(request, 'competitions/competition-details.html', context)
 
 
-def competition_delete(request, pk):
-    # profile = UserModel
-    competition = get_competition(pk)
+# def competition_edit(request, pk):
+#     # profile = UserModel
+#     competition = get_competition(pk)
+#
+#     if request.method == 'GET':
+#         form = CompetitionEditForm(instance=competition)
+#     else:
+#         form = CompetitionEditForm(request.POST, instance=competition)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('competitions_list')
+#
+#     context = {
+#         # 'profile': profile,
+#         'competition': competition,
+#         'form': form
+#     }
+#     return render(request, 'competitions/edit-competition.html', context)
 
-    if request.method == 'GET':
-        form = CompetitionDeleteForm(instance=competition)
-    else:
-        form = CompetitionDeleteForm(request.POST, instance=competition)
-        if form.is_valid():
-            form.save()
-            return redirect('competitions_list')
 
-    context = {
-        # 'profile': profile,
-        'competition': competition,
-        'form': form
-    }
-    return render(request, 'competitions/delete-competition.html', context)
+# def competition_delete(request, pk):
+#     # profile = UserModel
+#     competition = get_competition(pk)
+#
+#     if request.method == 'GET':
+#         form = CompetitionDeleteForm(instance=competition)
+#     else:
+#         form = CompetitionDeleteForm(request.POST, instance=competition)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('competitions_list')
+
+    # context = {
+    #     # 'profile': profile,
+    #     'competition': competition,
+    #     'form': form
+    # }
+    # return render(request, 'competitions/delete-competition.html', context)
 

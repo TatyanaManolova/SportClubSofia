@@ -34,7 +34,7 @@ class ClubUser(auth_models.AbstractUser):
         unique=True,
     )
 
-    profile_picture = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="media/photos")
+    profile_picture = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="photos")
 
     @property
     def full_name(self):
@@ -85,7 +85,7 @@ class Skater(models.Model):
         )
     )
 
-    photo = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="media/photos")
+    photo = models.ImageField(validators=(validate_file_size,), blank=True, null=True, upload_to="photos")
 
     category = models.CharField(
         null=False,

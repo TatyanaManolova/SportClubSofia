@@ -12,15 +12,15 @@
 }
 
 #skater-details>h1 {
-    letter-spacing: 10px;
+    letter-spacing: 5px;
     font-family: 'Croissant One', cursive;
     color: #E2E8EA;
-    font-size: 20px;
+    font-size: 40px;
     font-weight: 600;
     margin-bottom: 40px;
     text-transform: uppercase;
     text-align: center;
-    color: rgba(72, 97, 161, 0.61);
+    color: rgba(58, 110, 240, 0.61);
 }
 
 .info-section {
@@ -90,8 +90,8 @@
     margin-left: 15px;
     margin-right: 55px;
     height: 220px;
-    border-radius: 50%;
-    box-shadow: 0 0 25px white;
+    /* border-radius: 50%; */
+    /* box-shadow: 0 0 25px white; */
 }
 
 

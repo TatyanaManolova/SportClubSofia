@@ -1,15 +1,15 @@
 {% extends 'base/home-page.html' %}
 
 {% block content %}
-    <!-- create skater form -->
+    <!-- create competition form -->
     <section id="create-page" class="auth">
-        <form id="create" method="post" action="{% url 'skater_create' %}">
+        <form id="create" method="post" action="{% url 'competition_create' %}">
             <div class="container">
                 <h1 class="form-create-headline">Create Competition</h1>
 
                 {{ form }}
 
-                <input class="btn" type="submit" value="Create Skater">
+                <input class="btn" type="submit" value="Create Competition">
                 {% csrf_token %}
             </div>
         </form>
